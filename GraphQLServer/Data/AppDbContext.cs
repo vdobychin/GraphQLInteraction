@@ -13,8 +13,20 @@ namespace GraphQLServer.Data
         {
 
         }
-
         public DbSet<Catalog> Catalogs { get; set; }
         public DbSet<SubCatalog> SubCatalogs { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //Catalogs
+            modelBuilder.Entity<Catalog>().HasData(new Catalog("Line") { Id = 1 });
+            modelBuilder.Entity<Catalog>().HasData(new Catalog("Reel") { Id = 2 });
+
+            //SubCatalogs
+            modelBuilder.Entity<SubCatalog>().HasData(new SubCatalog("Плетенка") { Id = 1 });
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }

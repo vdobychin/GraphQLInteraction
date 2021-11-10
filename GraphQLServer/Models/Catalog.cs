@@ -13,6 +13,15 @@ namespace GraphQLServer.Models
 
         [Required]
         public string Name { get; set; }
-        
+
+        public Catalog()
+        {
+
+        }
+        public Catalog(string name)
+        {
+            Name = name;
+        }
+
     }
 }
