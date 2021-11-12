@@ -9,19 +9,10 @@ namespace GraphQLServer.Models
     public class Catalog
     {
         [Key]
-        public int Id { get; set; }
+        public int Id { get; set; } //Уникальный идентификатор
 
         [Required]
         public string Name { get; set; }
-
-        public Catalog()
-        {
-
-        }
-        public Catalog(string name)
-        {
-            Name = name;
-        }
 
     }
 }

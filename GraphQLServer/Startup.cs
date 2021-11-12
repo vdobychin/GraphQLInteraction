@@ -25,8 +25,18 @@ namespace GraphQLServer
         }
         public void ConfigureServices(IServiceCollection services)
         {
+            // добавление кэширования в оперативной памяти
+            services.AddMemoryCache();
+
             services.AddDbContext<AppDbContext>();
-            services.AddGraphQLServer().AddQueryType<Query>();
+            services
+                .AddInMemorySubscriptions()
+                .AddGraphQLServer()
+                //Запросы
+                .AddQueryType<Query>()
+            //Запросы будут правильно транслироваться в SQL, не запрашиваем лишнее
+                .AddProjections();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

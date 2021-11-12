@@ -1,9 +1,5 @@
 ﻿using GraphQLServer.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GraphQLServer.Data
 {
@@ -16,17 +12,21 @@ namespace GraphQLServer.Data
         public DbSet<Catalog> Catalogs { get; set; }
         public DbSet<SubCatalog> SubCatalogs { get; set; }
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Catalogs
-            modelBuilder.Entity<Catalog>().HasData(new Catalog("Line") { Id = 1 });
-            modelBuilder.Entity<Catalog>().HasData(new Catalog("Reel") { Id = 2 });
+            modelBuilder.HasDefaultSchema("catalogs");
+            var catalogs = new Catalog[]
+            {
+                new() {Id = 1, Name = "Line"},
+                new() {Id = 2, Name = "Reel"}
+            };
 
-            //SubCatalogs
-            modelBuilder.Entity<SubCatalog>().HasData(new SubCatalog("Плетенка") { Id = 1 });
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Catalog>(b =>
+            {
+                b.HasKey(a => a.Id);
+                b.HasIndex(b => b.Name).IsUnique();
+                b.HasData(catalogs);
+            });
         }
-
     }
 }
