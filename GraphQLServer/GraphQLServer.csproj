@@ -7,7 +7,16 @@
   <ItemGroup>
     <PackageReference Include="HotChocolate.AspNetCore" Version="12.1.0" />
     <PackageReference Include="HotChocolate.Data" Version="12.1.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="5.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="5.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
   </ItemGroup>
 
 </Project>
