@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GraphQL.Server.Ui.GraphiQL" Version="5.0.2" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="12.1.0" />
     <PackageReference Include="HotChocolate.Data" Version="12.1.0" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="5.0.12" />

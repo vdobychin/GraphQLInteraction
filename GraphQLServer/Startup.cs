@@ -80,6 +80,7 @@ namespace GraphQLServer
             }
 
             app.UseRouting();
+            app.UseGraphQLGraphiQL(); //Endpoints: https://localhost:5001/ui/graphiql  for use GraphiQL
 
             app.UseEndpoints(endpoints =>
             {
