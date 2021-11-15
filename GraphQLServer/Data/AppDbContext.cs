@@ -23,13 +23,13 @@ namespace GraphQLServer.Data
         public DbSet<Catalog> Catalogs { get; set; }
         public DbSet<SubCatalog> SubCatalogs { get; set; }
 
-        /*
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = System.IO.Path.Combine(AppContext.BaseDirectory, "gc.db") }.ToString());
             optionsBuilder.UseSqlite(connection);
         }
-        */
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

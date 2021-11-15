@@ -31,17 +31,18 @@ namespace GraphQLServer
                 loggingBuilder
                       .AddConsole()
                       //выводим команды SQL
-                      .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information);
-
-                //Выводим в окно отладки
-                loggingBuilder
+                      .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information)
+                      //Выводим в окно отладки
                       .AddDebug();
             });
             #endregion
 
-            //контекст базы данных, новый для каждого запроса
-            services.AddTransient<AppDbContext>();
+            services.AddDbContext<AppDbContext>(options => options.UseSqlite(new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = System.IO.Path.Combine(AppContext.BaseDirectory, "gc.db") }.ToString())));
 
+            //контекст базы данных, новый для каждого запроса
+            //services.AddTransient<AppDbContext>();
+
+            /*
             services.AddPooledDbContextFactory<AppDbContext>(ob =>
             {
                 var connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = System.IO.Path.Combine(AppContext.BaseDirectory, "gc.db") }.ToString());
@@ -54,6 +55,7 @@ namespace GraphQLServer
 
             });
 
+            */
             // добавление кэширования в оперативной памяти
             services.AddMemoryCache();
 
@@ -63,6 +65,8 @@ namespace GraphQLServer
                 .AddGraphQLServer()
                 //Запросы
                 .AddQueryType<Query>()
+                //Добавляем мутации
+                .AddMutationType<MutationsCatalog>()
                 //Запросы к БД имеют только нужные поля, т.е. только те которые запрашиваем в запросе (без AddProjections что то типа select * from...)
                 .AddProjections()
                 //Добавляем фильтрацию запросов, в запроса можно писать where
@@ -85,6 +89,7 @@ namespace GraphQLServer
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGraphQL("/graphql");
+                endpoints.MapGraphQLGraphiQL("/ui/graphiql");
             });
         }
     }

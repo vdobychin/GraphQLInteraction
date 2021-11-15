@@ -15,7 +15,7 @@ namespace GraphQLServer.GraphQL
         {
             _logger = logger;
 
-            logger.LogInformation("Инициализация");
+            logger.LogInformation("Инициализация Query");
         }
 
 
