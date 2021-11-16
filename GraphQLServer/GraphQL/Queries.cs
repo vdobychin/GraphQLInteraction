@@ -8,17 +8,28 @@ using System.Linq;
 
 namespace GraphQLServer.GraphQL
 {
-    public class Query
+    /// <summary>
+    /// Запросы GraphQl (запросы выполняются параллельно)
+    /// </summary>
+    public class Queries
     {
-        private ILogger<Query> _logger;
-        public Query(ILogger<Query> logger)
+        private ILogger<Queries> _logger;
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="logger"></param>
+        public Queries(ILogger<Queries> logger)
         {
             _logger = logger;
 
             logger.LogInformation("Инициализация Query");
         }
 
-
+        /// <summary>
+        /// Запрос чтения
+        /// </summary>
+        /// <param name="appDbContext">Контекст базы данных Entity</param>   
+        /// <returns>Каталог</returns>
         [UseProjection]
         [UseFiltering]
         [UseSorting]

@@ -6,8 +6,13 @@ using System.Diagnostics;
 
 namespace GraphQLServer.Data
 {
+    /** */
     public class AppDbContext : DbContext
     {
+        /// <summary>
+        /// Констрктор DemoContext
+        /// </summary>
+        /// <param name="options">свойства контекста</param>
         public AppDbContext(DbContextOptions options) : base(options)
         {
             try
@@ -20,17 +25,21 @@ namespace GraphQLServer.Data
                 Debug.Print(e.ToString());
             }
         }
+
+        /** Каталог */
         public DbSet<Catalog> Catalogs { get; set; }
+
+        /** Подкаталог */
         public DbSet<SubCatalog> SubCatalogs { get; set; }
 
-        
+        /** Переопределение метода */
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = System.IO.Path.Combine(AppContext.BaseDirectory, "gc.db") }.ToString());
             optionsBuilder.UseSqlite(connection);
         }
-        
 
+        /** Создание модели */
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.HasDefaultSchema("catalogs");

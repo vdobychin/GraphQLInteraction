@@ -1,5 +1,6 @@
 using GraphQLServer.Data;
 using GraphQLServer.GraphQL;
+using GraphQLServer.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Data.Sqlite;
@@ -59,14 +60,19 @@ namespace GraphQLServer
             // добавление кэширования в оперативной памяти
             services.AddMemoryCache();
 
+            //Подписки храним в оперативной памяти
+            services.AddInMemorySubscriptions();
+
             //services.AddDbContext<AppDbContext>();
             services
                 .AddInMemorySubscriptions()
                 .AddGraphQLServer()
                 //Запросы
-                .AddQueryType<Query>()
+                .AddQueryType<Queries>()
                 //Добавляем мутации
-                .AddMutationType<MutationsCatalog>()
+                .AddMutationType<Mutations>()
+                //Добавляем подписки
+                .AddSubscriptionType<Subscriptions>()
                 //Запросы к БД имеют только нужные поля, т.е. только те которые запрашиваем в запросе (без AddProjections что то типа select * from...)
                 .AddProjections()
                 //Добавляем фильтрацию запросов, в запроса можно писать where
@@ -84,6 +90,10 @@ namespace GraphQLServer
             }
 
             app.UseRouting();
+
+            //Подключаем WebSocket для подписок
+            app.UseWebSockets();
+            
             app.UseGraphQLGraphiQL(); //Endpoints: https://localhost:5001/ui/graphiql  for use GraphiQL
 
             app.UseEndpoints(endpoints =>
