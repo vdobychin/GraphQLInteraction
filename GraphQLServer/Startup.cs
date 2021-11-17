@@ -94,12 +94,14 @@ namespace GraphQLServer
             //Подключаем WebSocket для подписок
             app.UseWebSockets();
             
-            app.UseGraphQLGraphiQL(); //Endpoints: https://localhost:5001/ui/graphiql  for use GraphiQL
+            //app.UseGraphQLGraphiQL(); //Endpoints: https://localhost:5001/ui/graphiql  for use GraphiQL
+            //app.UseGraphQLVoyager();  //Endpoints: https://localhost:5001/graphql/voyager  for use GraphiQL
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGraphQL("/graphql");
                 endpoints.MapGraphQLGraphiQL("/ui/graphiql");
+                endpoints.MapGraphQLVoyager("/graphql/voyager");
             });
         }
     }
