@@ -53,6 +53,10 @@ namespace GraphQLServer.GraphQL
         /// <returns>Каталог</returns>
         public Catalog DeleteCatalog(Catalog catalog, [Service] AppDbContext appDbContext)
         {
+            var catalogId = ((IQueryable<Catalog>)appDbContext.Catalogs).FirstOrDefault(a => a.Id == catalog.Id);
+            if (catalogId == null)
+                throw new ArgumentException($"Каталога с заданным id: {catalog.Id} не существует");
+
             appDbContext.Remove(catalog);
             appDbContext.SaveChanges();
             return catalog;

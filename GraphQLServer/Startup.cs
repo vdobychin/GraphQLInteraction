@@ -13,16 +13,24 @@ using System;
 
 namespace GraphQLServer
 {
+    /// <summary>
+    /// Startup
+    /// </summary>
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-
         private readonly IConfiguration Configuration;
+        /// <summary>
+        /// Конструктор Startup
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+        /// <summary>
+        /// Dependency Injection
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
             #region Настройка логирования
@@ -42,21 +50,7 @@ namespace GraphQLServer
 
             //контекст базы данных, новый для каждого запроса
             //services.AddTransient<AppDbContext>();
-
-            /*
-            services.AddPooledDbContextFactory<AppDbContext>(ob =>
-            {
-                var connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = System.IO.Path.Combine(AppContext.BaseDirectory, "gc.db") }.ToString());
-                //var connection = new Npgsql.NpgsqlConnection(Configuration.GetConnectionString("DefaultConnection"));
-                connection.Open();
-                ob.UseSqlite(connection)
-                 //ob.UseNpgsql(connection)
-                //.UseSnakeCaseNamingConvention()
-                .EnableSensitiveDataLogging(true);
-
-            });
-
-            */
+            
             // добавление кэширования в оперативной памяти
             services.AddMemoryCache();
 
@@ -78,10 +72,14 @@ namespace GraphQLServer
                 //Добавляем фильтрацию запросов, в запроса можно писать where
                 .AddFiltering()
                 //Добавляем сортировку результата запроса (Order by)
-                .AddSorting();
+                .AddSorting()
+                //Возвращаем ошибки в теле ответа на запрос
+                .AddErrorFilter(er => { return er; });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

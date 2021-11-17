@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace GraphQLServer.Models
 {
+    /// <summary>
+    /// Каталог
+    /// </summary>
     [GraphQLDescription("Каталог")]
     public class Catalog
     {
@@ -22,5 +25,8 @@ namespace GraphQLServer.Models
         [Required]
         public string Name { get; set; }
 
+        /** Подкаталоги каталога */
+        //[Authorize(Roles = new[] { "admin" })]
+        public ICollection<SubCatalog> SubCatalogs { get; set; } = new List<SubCatalog>();
     }
 }

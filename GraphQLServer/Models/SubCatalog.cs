@@ -22,5 +22,11 @@ namespace GraphQLServer.Models
         /// </summary>
         [Required]
         public string Name { get; set; }
+
+        /** Уникльный идентификатор каталога */
+        [Required]
+        public int CatalogId { get; set; }
+        /** Каталог */
+        public Catalog Catalog { get; set; }
     }
 }

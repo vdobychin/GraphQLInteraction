@@ -51,12 +51,41 @@ namespace GraphQLServer.Data
                 new() { Id = 3, Name = "Hook" },
                 new() { Id = 4, Name = "Feeder" }
             };
-
             modelBuilder.Entity<Catalog>(b =>
             {
                 b.HasKey(a => a.Id);
                 b.HasIndex(b => b.Name).IsUnique();
                 b.HasData(catalogs);
+
+                // Один ко многим
+                b.HasMany(a => a.SubCatalogs)
+                 .WithOne(b => b.Catalog);
+            });
+
+            modelBuilder.Entity<SubCatalog>(b =>
+            {
+                var subcatalog = new SubCatalog[]
+                {
+                    new() { Id = 1, Name = "Плетеные шнуры", CatalogId = 1 },
+                    new() { Id = 2, Name = "Монофильная леска", CatalogId = 1 },
+                    new() { Id = 3, Name = "Флюорокарбоновая леска", CatalogId = 1 },
+                    new() { Id = 4, Name = "Безынерционные катушки", CatalogId = 2 },
+                    new() { Id = 5, Name = "Инерционные катушки", CatalogId = 2 },
+                    new() { Id = 6, Name = "Катушки с байтраннером", CatalogId = 2 },
+                    new() { Id = 7, Name = "Матчевые катушки", CatalogId = 2 },
+                    new() { Id = 8, Name = "Фидерные катушки", CatalogId = 2 },
+                    new() { Id = 9, Name = "Шпули для катушек", CatalogId = 2 },
+                    new() { Id = 10, Name = "Одинарные крючки", CatalogId = 3 },
+                    new() { Id = 11, Name = "Двойные крючки", CatalogId = 3 },
+                    new() { Id = 12, Name = "Тройные крючки", CatalogId = 3 },
+                    new() { Id = 13, Name = "Офсетные крючки", CatalogId = 3 },
+                    new() { Id = 14, Name = "Крючки незацепляйки", CatalogId = 3 },
+                    new() { Id = 15, Name = "Крючки с поводком", CatalogId = 3 }
+                };
+
+                b.HasKey(a => a.Id);
+                b.HasIndex(b => b.Name).IsUnique();
+                b.HasData(subcatalog);
             });
 
         }

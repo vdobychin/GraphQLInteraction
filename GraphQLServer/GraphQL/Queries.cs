@@ -26,7 +26,7 @@ namespace GraphQLServer.GraphQL
         }
 
         /// <summary>
-        /// Запрос чтения
+        /// Запрос чтения каталога
         /// </summary>
         /// <param name="appDbContext">Контекст базы данных Entity</param>   
         /// <returns>Каталог</returns>
@@ -34,13 +34,17 @@ namespace GraphQLServer.GraphQL
         [UseFiltering]
         [UseSorting]
         public IQueryable<Catalog> Catalog([Service] AppDbContext appDbContext) => appDbContext.Catalogs;
-        /*{
-            return new List<Catalog>
-            {
-                new Catalog("Line") { Id = 1 },
-                new Catalog("Reel") { Id = 2 }
-            }
-            .AsQueryable();
-        }*/
+
+
+        /// <summary>
+        /// Запрос чтения подкаталога
+        /// </summary>
+        /// <param name="appDbContext"></param>
+        /// <returns>Подкаталог</returns>
+        [UseProjection]
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<SubCatalog> SubCatalog([Service] AppDbContext appDbContext) => appDbContext.SubCatalogs;
+
     }
 }
