@@ -2,6 +2,7 @@
 using GraphQLServer.Models;
 using HotChocolate;
 using HotChocolate.Data;
+using HotChocolate.Types;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,7 @@ namespace GraphQLServer.GraphQL
         /// </summary>
         /// <param name="appDbContext">Контекст базы данных Entity</param>   
         /// <returns>Каталог</returns>
+        [UsePaging(IncludeTotalCount = true)]
         [UseProjection]
         [UseFiltering]
         [UseSorting]

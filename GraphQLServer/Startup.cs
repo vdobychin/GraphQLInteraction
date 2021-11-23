@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using HotChocolate;
 
 namespace GraphQLServer
 {
@@ -75,6 +76,7 @@ namespace GraphQLServer
                 .AddSorting()
                 //Возвращаем ошибки в теле ответа на запрос
                 .AddErrorFilter(er => { return er; });
+            //services.AddDataLoaderRegistry();
         }
 
         /// <summary>
